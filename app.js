@@ -1,13 +1,19 @@
 var express = require('express');
+var indexRouter = require('./routes/index');
+var path = require('path');
+var cookieParser = require('cookie-parser');
+var logger = require('morgan');
+
 const mongoose = require("mongoose");
-var app = express();
-app.use(express.json());
 const cors = require("cors");
-app.use(cors());
 const bcrypt = require("bcryptjs");
-app.set("view engine", "ejs");
-app.use(express.urlencoded({ extended: false }));
 const jwt = require("jsonwebtoken");
+var app = express();
+
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.set("view engine", "ejs");
+app.use(cors());
 
 
 const JWT_SECRET = "hvdvay6ert72839289()aiyg8t87qt72393293883uhefiuh78ttq3ifi78272jbkj?[]]pou89ywe";
@@ -85,7 +91,14 @@ app.post("/userData", async (req, res) => {
 });
 
 // con rutas
-var indexRouter = require('./routes/index');
+
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
+
+
 app.use('/', indexRouter);
 
 
