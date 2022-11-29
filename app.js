@@ -22,6 +22,8 @@ mongoose.connect(mongoUrl, {
 require("./models/userDetails.js");
 const User = mongoose.model("UserInfo");
 
+// Hacer los procesos salieron un poco mal poniendolos en ./routes por lo que se opta por hacerlo desde el archivo app.js
+
 // REGISTER
 app.post("/register", async(req, res) => {
     const {fname, lname, email, password} = req.body;
@@ -81,6 +83,11 @@ app.post("/userData", async (req, res) => {
         });
     } catch (error) {}
 });
+
+// con rutas
+var indexRouter = require('./routes/index');
+app.use('/', indexRouter);
+
 
 
 
